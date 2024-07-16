@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Vision-Language Models for Dense Feedback Reward">
+  <meta name="keywords" content="VLMs, Natural Language Feedback, Dense Reward, TAMER, RoboCLIP">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vision-Language Models for Dense Feedback Reward</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <!-- <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a> -->
+
+
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Vision-Language Models for Dense Feedback Reward</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://dhruv2012.github.io/">Dhruv Patel</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="">Archana Kutambaka</a>,<sup>*</sup></span>
+            <span class="author-block">
+              <a href="">Kurt Contreras Diaz</a><sup>*</sup>,</span>
+            </span>
+            <span class="author-block">
+              <a href="">Matthew Gombolay</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <!-- <span class="author-block"><sup>1</sup>University of Washington,</span> -->
+            <span class="author-block">Georgia Institute of Technology<span>
+              <br>
+            <span class="author-block">*Equal Contribution</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://drive.google.com/file/d/1v5bx3HEQKxg-85LdeWideK-ttsmdAt04/view?usp=sharing"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Report</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          We introduce an enhanced Learning from Demonstration (LfD) algorithm 
+          that integrates a video-language model (VLM) with an actor-critic architecture to leverage natural language (NL) feedback in robotic training. 
+          
+          We compare our method against traditional TAMER, RoboCLIP, and modified RoboCLIP baselines in a simulated Metaworld environment, 
+          focusing on tasks like opening and closing drawers and pressing buttons. 
+          Our experiments demonstrate that while our methodology shows improved sample efficiency and performance over RoboCLIP, 
+          it faces challenges with feedback variability from the VLM. Additionally, a human subject study assesses user comfort with NL feedback versus scalar feedback, 
+          revealing a preference for TAMER-style feedback despite the intuitive appeal of NL. 
+          
+          The findings suggest that while NL feedback enhances interaction richness, 
+          its implementation needs careful consideration to minimize variability 
+          and optimize learning outcomes.
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Motivation</h2>
+        <div class="content has-text-justified" style="display: flex; align-items: flex-start;">
+          <div style="flex: 1;">
+            <ul>
+              <li>Situated Learning Interaction - A tight feedback loop for faster and effective learning</li>
+              <li>Use feedback from an observing expert (TAMER)</li>
+              <li>How do we make the best use of the range {-s, s}</li>
+              <li>Approach: Natural language as medium for feedback for nuance and expressivity</li>
+            </ul>
+            <br>
+            <p>
+              Can we use natural language for reward modeling? <br>
+              <ul>
+                <li>Circumvent the need for designing extrinsic reward functions</li>
+                <li>Added expressivity that comes with communicating via language</li>
+              </ul>
+            </p>
+          </div>
+          <div style="flex: 1; text-align: center; margin-left: 30px;">
+            <img src="./static/images/Motivation.png" alt="Motivation Image" style="width: 90%; height: auto;">
+            <div>Credits: TAMER: Training an Agent Manually via
+              Evaluative Reinforcement</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Prior Works</h2>
+        <div class="content has-text-justified" style="display: flex; justify-content: center;">
+          <div style="text-align: center; margin-right: 40px; width: 45%;">
+            <img src="./static/images/prior_llms.png" alt="Prior LLMs" style="width: 100%; height: auto;">
+            <div style="padding-top: 10px;">
+              <b>LLMs for Reward Modeling</b> <br>
+              <span style="color: red;">Lack Visual Grounding</span>
+            </div>
+          </div>
+          <div style="text-align: center; margin-left: 40px; width: 45%;">
+            <img src="./static/images/prior_vlms.png" alt="Prior VLMs" style="width: 100%; height: auto;">
+            <div style="padding-top: 10px;">
+              <b>VLMs for Reward Modeling</b> <br>
+              Visually grounded but <span style="color: red;">Natural Language as Feedback for Reward Not Explored</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Our Approach</h2>
+
+        <div class="content has-text-centered">
+          <img src="./static/images/Approach.png"
+          class="interpolation-image"
+          alt="Interpolate start reference image."/>
+        <div ><b>Dense RL with Natural Language Feedback</b></h3></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Task Setup</h2>
+        <div class="content has-text-justified">
+
+          <ul>
+            <li>Metaworld Manipulation Tasks </li>
+              <ul>
+                <li>Task 1: Pick and Place </li>
+                <li>Task 2: Button Press </li>
+                <li>Task 3: Door Opening </li>
+              </ul>
+            <li> 
+              Feedback given and credit assignment at 32-step interval​
+            </li>
+            <li>
+              Metrics:  Avg. Env-based reward, Success Rate
+            </li>
+          </ul>
+        </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+
+          <h3>Qualitative</h3>
+          <div class="image-container" style="display: flex; justify-content: center; align-items: flex-start;">
+            <div style="display: flex; flex-direction: column; text-align: center; margin-right: 20px;">
+              <div style="text-align: center; margin-bottom: 20px;">
+                <img src="./static/ours-gif.gif"
+                     alt="Ours GIF"
+                     width="400"
+                     height="300"
+                />
+                <div>Ours</div>
+              </div>
+              <div style="text-align: center;">
+                <img src="./static/roboclip_32tsteps-gif.gif"
+                     alt="RoboCLIP (32 time steps) GIF"
+                     width="400"
+                     height="300"
+                />
+                <div>RoboCLIP (32 time steps)</div>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; text-align: center; margin-left: 20px;">
+              <div style="text-align: center; margin-bottom: 20px;">
+                <img src="./static/tamer-gif.gif"
+                     alt="TAMER GIF"
+                     width="400"
+                     height="300"
+                />
+                <div>TAMER</div>
+              </div>
+              <div style="text-align: center;">
+                <img src="./static/roboclip-gif.gif"
+                     alt="RoboCLIP GIF"
+                     width="400"
+                     height="300"
+                />
+                <div>RoboCLIP</div>
+              </div>
+            </div>
+          </div>
+
+          <h3>Quantitative</h3>
+
+            <p style="text-align: center;">
+              <img src="./static/images/quantitative_results.png"
+                   class="interpolation-image"
+                   alt="Interpolate start reference image."
+                   width="600"
+                   height="300"
+              />
+              <p style="text-align: center;">
+                <li>Comparable performance to TAMER</li>
+                <li><b>1300x sample efficient</b> compared to RoboCLIP</li>
+                <li>Although failed the Close Door task, our approach got a slightly better reward than RoboCLIP​</li>
+              </p>
+            </p>
+
+          <br>
+          <br>
+
+          <div class="image-row">
+            <img src="./static/images/Button_press.png" class="interpolation-image" alt="Interpolate start reference image.">
+            <img src="./static/images/Door_close.png" class="interpolation-image" alt="Interpolate start reference image.">
+          </div>
+          <div class="image-row">
+            <img src="./static/images/close_drawer.png" class="interpolation-image" alt="Interpolate start reference image.">
+          </div>
+          <div class="caption">
+            Avg. Evaluation Reward on a) Close Drawer, b) Button Press, and c) Close Door. Primary
+            Scale at the bottom and Secondary scale at the top.
+          </div>
+          
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .image-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .image-row img {
+    margin: 0 10px;
+    width: 500px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+  }
+  .caption {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+  }
+</style>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Failure Scenarios</h2>
+        <div class="content has-text-justified">
+          <div class="image-container" style="display: flex; justify-content: center; align-items: flex-start;">
+            <div style="margin-right: 20px; text-align: center;">
+              <img src="./static/images/failure_scenario_irl.gif"
+                   alt="Failure scenario GIF"
+                   width="400"
+                   height="300"
+              />
+              <div>Failure Scenario GIF</div>
+            </div>
+            <div style="display: flex; flex-direction: column; text-align: center;">
+              <div style="margin-bottom: 20px;">
+                <img src="./static/images/failure-1.png"
+                     alt="Failure scenario image 1"
+                     width="400"
+                     height="300"
+                />
+                <div>Failure scenario: Reward score LLaVA =0.6  S3D=15.7 </div>
+              </div>
+              <div>
+                <img src="./static/images/failure-2.png"
+                     alt="Failure scenario image 2"
+                     width="400"
+                     height="300"
+                />
+                <div>Success scenario: Reward score LLaVA =40 S3D=-4.5  </div>
+              </div>
+            </div>
+          </div>
+          <p>
+            <li>Better Scene Perspective? - Multi-view</li>
+            <li>Larger VLMs can help</li>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">User Study</h2>
+        <div class="content has-text-justified">
+          <b>Do humans prefer a natural language form of communication compared to a scalar value feedback?</b>
+          <p>Conducted a user-study that can be broken down into 2 parts:</p>
+          <ul>
+            <li>Pre-study questionnaire
+              <ul>
+                <li>Demographic</li>
+                <li>Personality (mini-IPIP)</li>
+                <li>Attitude towards robots (NARS)</li>
+              </ul>
+            </li>
+            <li>Post-study questionnaire
+              <ul>
+                <li>Workload Assessment (NASA-TLX)</li>
+                <li>System Usability (System Usability Scale)</li>
+                <li>Perceived Intelligence (Godspeed Scale)</li>
+              </ul>
+            </li>
+          </ul>
+          <div class="image-container" style="display: flex; flex-direction: column; align-items: center;">
+            <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+              <div style="margin-right: 20px; text-align: center;">
+                <img src="./static/images/systemusability.png"
+                     alt="System Usability"
+                     width="400"
+                     height="300"
+                />
+                <div>System Usability</div>
+              </div>
+              <div style="text-align: center;">
+                <img src="./static/images/perceivedintelligence.png"
+                     alt="Perceived Intelligence"
+                     width="400"
+                     height="300"
+                />
+                <div>Perceived Intelligence</div>
+              </div>
+            </div>
+            <div style="text-align: center;">
+              <img src="./static/images/workloadassessment.png"
+                   alt="Workload Assessment"
+                   width="400"
+                   height="300"
+              />
+              <div>Workload Assessment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Conclusion</h2>
+        <div class="content has-text-justified">
+          <li>Plausible to use a VLM as proxy for feedback but more powerful models might perform better.</li>
+          <li>VLM’s POV can affect its interpretation of the scene.</li>
+          <li>Humans prefer to see the model learn “instantaneously” from their feedback.</li>
+        </div>
+        <br>
+        <h2 class="title is-3">Future Work</h2>
+        <div class="content has-text-justified">
+          <li>Query user automatically based on some reward heuristic</li>
+          <li>Explore larger VLMs (LLaVA, etc)</li>
+          <li>Multi-view perspective for better scene understanding</li>
+          <li>Allow for speech-based interface</li>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This website borrows the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
